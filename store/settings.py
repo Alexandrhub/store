@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 
     'products',
     'users',
@@ -66,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'products.context_processors.baskets'
+
             ],
         },
     },
@@ -77,9 +84,13 @@ WSGI_APPLICATION = 'store.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "store_db",
+        "USER": "store_username",
+        "PASSWORD": "store_password",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -139,8 +150,30 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Sending emails
 
-EMAIL_HOST = 'smtp.yandex.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'django-store@yandex.ru'
-EMAIL_HOST_PASSWORD = 'GtnthujA'
-EMAIL_USE_SSL = True
+# EMAIL_HOST = 'smtp.yandex.com'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = 'django-store@yandex.ru'
+# EMAIL_HOST_PASSWORD = 'GtnthujA'
+# EMAIL_USE_SSL = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# OAuth2 authentication
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to log in by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'SCOPE': [
+            'user',
+        ],
+    }
+}
+ACCOUNT_EMAIL_VERIFICATION = 'none'
