@@ -50,3 +50,24 @@ class UserRegistrationViewTestCase(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertContains(response, 'Пользователь с таким именем уже существует.', html=True)
+
+
+class UserLoginTestCase(TestCase):
+
+    def test_login_get(self):
+        path = reverse('users:login')
+        response = self.client.get(path)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.context_data['title'], 'Store - Авторизация')
+        self.assertTemplateUsed(response, 'users/login.html')
+
+
+class UserLogoutTest(TestCase):
+
+    def test_logout(self):
+        path = reverse('users:logout')
+        response = self.client.get(path)
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertRedirects(response, reverse('index'))
