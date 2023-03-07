@@ -12,7 +12,6 @@ class User(AbstractUser):
 
 
 class EmailVerification(models.Model):
-    # Создаем поле для хранения универсальных идентификаторов
     code = models.UUIDField(unique=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
@@ -24,8 +23,8 @@ class EmailVerification(models.Model):
     def send_verification_email(self):
         link = reverse('users:email_verification', kwargs={'email': self.user.email, 'code': self.code})
         verification_link = f'{settings.DOMAIN_NAME}{link}'
-        subject = f'Подтверждение учетной записи для {self.user.username}'
-        message = 'Для подтверждения учетной записи для {} перейдите по ссылке: {}'.format(
+        subject = f'Подверждение учетной записи для {self.user.username}'
+        message = 'Для подверждения учетной записи для {} перейдите по ссылке: {}'.format(
             self.user.email,
             verification_link
         )

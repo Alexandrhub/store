@@ -21,7 +21,7 @@ class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
     form_class = UserRegistrationForm
     template_name = 'users/registration.html'
     success_url = reverse_lazy('users:login')
-    success_message = 'Поздравляем! Вы успешно зарегистрировались!'
+    success_message = 'Вы успешно зарегистрированы!'
     title = 'Store - Регистрация'
 
 
@@ -42,9 +42,8 @@ class EmailVerificationView(TitleMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         code = kwargs['code']
         user = User.objects.get(email=kwargs['email'])
-        email_verification = EmailVerification.objects.filter(user=user, code=code)
-        # проверяем не пустой ли список и срок действия не истек
-        if email_verification.exists() and not email_verification.first().is_expired():
+        email_verifications = EmailVerification.objects.filter(user=user, code=code)
+        if email_verifications.exists() and not email_verifications.first().is_expired():
             user.is_verified_email = True
             user.save()
             return super(EmailVerificationView, self).get(request, *args, **kwargs)

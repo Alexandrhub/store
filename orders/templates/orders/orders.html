@@ -5,32 +5,31 @@
     <section>
         <div class="container pt-5">
             <div class="text-center mt-5">
-                <h1>Заказы</h1>
+                <h1>Заказ #{{ object.id }}</h1>
                 <div class="orders mt-5">
                     <table class="table">
                         <thead>
-                        <tr class="table-light">
-                            <th scope="col">#</th>
-                            <th scope="col">Статус</th>
-                            <th scope="col">Создан</th>
-                            <th scope="col">Итого</th>
-                            <th scope="col">Действие</th>
+                        <tr>
+                            <th scope="col">Название</th>
+                            <th scope="col">Кол-во</th>
+                            <th scope="col">Цена</th>
+                            <th scope="col">Сумма</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for order in object_list %}
+                        {% for purchased_item in object.basket_history.purchased_items %}
                             <tr>
-                                <th scope="row">{{ order.id }}</th>
-                                <td>{{ order.get_status_display }}</td>
-                                <td>{{ order.created|naturaltime }}</td>
-                                <td>{{ order.basket_history.total_sum|intcomma }} руб.</td>
-                                <td>
-                                    <a href="{% url 'orders:order' order.id %}">просмотреть</a>
-                                </td>
+                                <th scope="row">
+                                    {{ purchased_item.product_name }}
+                                </th>
+                                <td>{{ purchased_item.quantity }}</td>
+                                <td>{{ purchased_item.price|intcomma }} руб.</td>
+                                <td>{{ purchased_item.sum|intcomma }} руб.</td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
+                    <p class="float-right h4 mt-3">Итого {{ object.basket_history.total_sum|intcomma }} руб.</p>
                 </div>
             </div>
         </div>
