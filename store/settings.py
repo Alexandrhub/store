@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-DOMAIN_NAME = 'http://localhost:8000'
+DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 # Application definition
 
@@ -166,6 +166,7 @@ LOGOUT_REDIRECT_URL = '/'
 # EMAIL_HOST_PASSWORD = 'GtnthujA'
 # EMAIL_USE_SSL = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # OAuth2 authentication
 
@@ -186,4 +187,9 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Stripe
+
+STRIPE_PUBLIC_KEY = 'pk_test_51MiybBKZJO4Q6DPR6iWFdTI3dlwx0N5Kih4WsOSdnzC2lL3Lk6ELmsOc4Ooe47NYzq28ItW67Yo1ARZRrGHsVNkT00OyUUsbcW'
+STRIPE_SECRET_KEY = 'sk_test_51MiybBKZJO4Q6DPRzWNmU415XrvBqgEvNmChaPExwrSxrkGu2hkldFvpcjpE5zVO0ie1CHtOiKLSTqaBDufqz14o007YYqzZnP'
+STRIPE_WEBHOOK_SECRET = 'whsec_2275f7bc0d91f4d0c815c0c3300f55f50db36621d1a12552bb4712de2f4a99ff'

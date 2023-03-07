@@ -28,14 +28,13 @@
             </ul>
         </div>
     {% endfor %}
-
     <div class="card mb-3">
         <div class="card-footer">
             <p class="float-left">Итого</p>
             <h4 class="float-right">{{ baskets.total_sum|intcomma }} руб.</h4>
         </div>
     </div>
-    <a class="btn btn-success btn-lg float-right" href="{% url 'orders:order-create' %}">
+    <a class="btn btn-success btn-lg float-right" href="{% url 'orders:order_create' %}">
         Оформить заказ
     </a>
 {% else %}
