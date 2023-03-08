@@ -5,6 +5,7 @@ django-allauth==0.52.0
 django-environ==0.10.0
 django-extensions==3.2.1
 django_debug_toolbar==3.8.1
+djangorestframework==3.14.0
 
 flake8==6.0.0
 ipython==8.11.0
